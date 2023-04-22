@@ -9,7 +9,7 @@ defmodule ExUnitNotifier.Notifiers.NotifySend do
 
   defp executable, do: System.find_executable("notify-send")
 
-  defp build_args(status, message, %{clear_history: clear_history}) do
+  defp build_args(status, message, opts) do
     args = [
       "--app-name=ExUnit",
       "--icon=#{get_icon(status)}",
@@ -17,10 +17,10 @@ defmodule ExUnitNotifier.Notifiers.NotifySend do
       message
     ]
 
-    maybe_add_clear_history(args, clear_history)
+    maybe_add_clear_history(args, opts)
   end
 
-  defp maybe_add_clear_history(args, true),
+  defp maybe_add_clear_history(args, %{clear_history: true}),
     do: List.insert_at(args, 2, "--hint=int:transient:1")
 
   defp maybe_add_clear_history(args, _clear_history), do: args

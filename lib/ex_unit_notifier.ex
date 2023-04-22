@@ -65,10 +65,7 @@ defmodule ExUnitNotifier do
 
   defp status(_), do: :ok
 
-  defp opts,
-    do: %{
-      clear_history: Application.get_env(:ex_unit_notifier, :clear_history, false)
-    }
+  defp opts, do: Map.new(Application.get_all_env(:ex_unit_notifier))
 
   defp notifier, do: Application.get_env(:ex_unit_notifier, :notifier, first_available_notifier())
 
