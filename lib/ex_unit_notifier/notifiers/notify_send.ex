@@ -1,6 +1,9 @@
 defmodule ExUnitNotifier.Notifiers.NotifySend do
   @moduledoc false
 
+  def notify(:ok, _message, opts) when opts.notify_on_failure_only == true do
+  end
+
   def notify(status, message, opts) do
     System.cmd(executable(), build_args(status, message, opts))
   end
